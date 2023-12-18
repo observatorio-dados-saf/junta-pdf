@@ -24,12 +24,13 @@ def juntar_pdf_e_exportar(lista_pdfs: list) -> bytes:
 
 st.header('Juntar PDFs')
 arquivos_pdfs = st.file_uploader(
-	'Juntar PDFs',
+	'Buscar arquivos neste computador',
 	'pdf',
 	accept_multiple_files = True
 )
 
-nome_arquivo = st.text_input('Nome do Arquivo')
+nome_arquivo = st.text_input('Nome do arquivo')
+
 st.download_button(
 	label = 'Juntar e Baixar PDF',
 	data = juntar_pdf_e_exportar(arquivos_pdfs),
