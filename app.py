@@ -10,6 +10,8 @@ st.set_page_config(
 	initial_sidebar_state = 'collapsed' 
 )
 
+st.header('Juntar e Separar Documentos PDF')
+
 def juntar_pdf_e_exportar(lista_pdfs: list) -> bytes:
 	pdf = PdfWriter()
 	for i in lista_pdfs:
@@ -43,7 +45,7 @@ def cortar_pdf(file, lista_paginas: list) -> bytes:
 	dados_processados = bytes_file.getvalue()
 	return dados_processados
 
-st.header('Juntar PDFs')
+st.write('### Juntar PDFs')
 arquivos_pdfs = st.file_uploader(
 	'Buscar arquivos neste computador',
 	'pdf',
@@ -57,7 +59,7 @@ st.download_button(
 	file_name = f'''{nome_arquivo1}_{int(datetime.now().timestamp())}.pdf'''
 )
 
-st.header('Cortar PDFs')
+st.write('### Cortar PDFs')
 arquivo_pdf = st.file_uploader(
 	'Buscar arquivo neste computador',
 	'pdf'
@@ -70,6 +72,6 @@ st.write(paginas)
 
 st.download_button(
 	label = 'Baixar PDF',
-	data = cortar_pdf(arquivo_pdf, list(paginas)),
+	data = cortar_pdf(arquivo_pdf, paginas),
 	file_name = f'''{nome_arquivo2}_{int(datetime.now().timestamp())}.pdf'''
 )
