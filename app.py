@@ -32,18 +32,21 @@ def paginas_pdf(file) -> int:
 		return 1
 
 def cortar_pdf(file, lista_paginas: list) -> bytes:
-	pdfr = PdfReader(file)
-	pdfw = PdfWriter()
-
-	for i in lista_paginas:
-		pdfw.add_page(pdfr.pages[i - 1])
-
-	bytes_file = BytesIO()
-	pdfw.write(bytes_file)
-	pdfw.close()
-
-	dados_processados = bytes_file.getvalue()
-	return dados_processados
+	if file is not None:
+		pdfr = PdfReader(file)
+		pdfw = PdfWriter()
+	
+		for i in lista_paginas:
+			pdfw.add_page(pdfr.pages[i - 1])
+	
+		bytes_file = BytesIO()
+		pdfw.write(bytes_file)
+		pdfw.close()
+	
+		dados_processados = bytes_file.getvalue()
+		return dados_processados
+	else:
+		return False
 
 st.write('#### Juntar PDFs')
 arquivos_pdfs = st.file_uploader(
