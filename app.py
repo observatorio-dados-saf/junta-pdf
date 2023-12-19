@@ -1,5 +1,5 @@
 
-from pypdf import PdfWriter
+from pypdf import PdfWriter, PdfReader
 from datetime import datetime
 from io import BytesIO
 import streamlit as st
@@ -22,6 +22,24 @@ def juntar_pdf_e_exportar(lista_pdfs: list) -> bytes:
 	dados_processados = bytes_file.getvalue()
 	return dados_processados
 
+def paginas_pdf(file) -> int:
+	pdf = PdfReader(file)
+	return len(pdf.pages)
+
+def cortar_pdf(file, lista_paginas) -> bytes:
+	pdfr = PdfReader(file)
+	pdfw = PdfWriter()
+
+	for i in lista_paginas:
+		pdfw.append(pdfr.pages[i - 1])
+
+	bytes_file = BytesIO()
+	pdfw.write(bytes_file)
+	pdfw.close()
+
+	dados_processados = bytes_file.getvalue()
+	return dados_processados
+
 st.header('Juntar PDFs')
 arquivos_pdfs = st.file_uploader(
 	'Buscar arquivos neste computador',
@@ -29,10 +47,24 @@ arquivos_pdfs = st.file_uploader(
 	accept_multiple_files = True
 )
 
-nome_arquivo = st.text_input('Nome do arquivo')
-
+nome_arquivo1 = st.text_input('Nome do arquivo (1)')
 st.download_button(
 	label = 'Juntar e Baixar PDF',
 	data = juntar_pdf_e_exportar(arquivos_pdfs),
-	file_name = f'''{nome_arquivo}_{int(datetime.now().timestamp())}.pdf'''
+	file_name = f'''{nome_arquivo1}_{int(datetime.now().timestamp())}.pdf'''
+)
+
+st.header('Cortar PDFs')
+arquivo_pdf = st.file_uploader(
+	'Buscar arquivo neste computador',
+	'pdf'
+)
+
+nome_arquivo2 = st.text_input('Nome do arquivo (2)')
+paginas = st.multiselect('Páginas selecionadas', options = range(1, paginas_pdf(arquivo_pdf))
+
+st.download_button(
+	label = 'Baixar PDF',
+	data = cortar_pdf(arquivo_pdf),
+	file_name = f'''{nome_arquivo2}_{int(datetime.now().timestamp())}.pdf'''
 )
