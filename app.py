@@ -62,7 +62,7 @@ st.download_button(
 	file_name = f'''{nome_arquivo1}_{int(datetime.now().timestamp())}.pdf'''
 )
 
-st.write('#### Cortar PDFs')
+st.write('#### Cortar / Reordenar PDFs')
 arquivo_pdf = st.file_uploader(
 	'Buscar arquivo neste computador',
 	'pdf'
