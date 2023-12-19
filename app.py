@@ -29,7 +29,7 @@ def paginas_pdf(file) -> int:
 	else:
 		return 1
 
-def cortar_pdf(file, lista_paginas) -> bytes:
+def cortar_pdf(file, lista_paginas: list) -> bytes:
 	pdfr = PdfReader(file)
 	pdfw = PdfWriter()
 
@@ -70,6 +70,6 @@ st.write(paginas)
 
 st.download_button(
 	label = 'Baixar PDF',
-	data = cortar_pdf(arquivo_pdf, paginas),
+	data = cortar_pdf(arquivo_pdf, list(paginas)),
 	file_name = f'''{nome_arquivo2}_{int(datetime.now().timestamp())}.pdf'''
 )
