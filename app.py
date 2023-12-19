@@ -68,6 +68,6 @@ paginas = st.multiselect('Páginas selecionadas', options = range(1, paginas_pdf
 
 st.download_button(
 	label = 'Baixar PDF',
-	data = cortar_pdf(arquivo_pdf),
+	data = cortar_pdf(arquivo_pdf, paginas),
 	file_name = f'''{nome_arquivo2}_{int(datetime.now().timestamp())}.pdf'''
 )
