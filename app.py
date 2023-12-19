@@ -66,6 +66,8 @@ arquivo_pdf = st.file_uploader(
 nome_arquivo2 = st.text_input('Nome do arquivo (2)')
 paginas = st.multiselect('Páginas selecionadas', options = range(1, paginas_pdf(arquivo_pdf)))
 
+st.write(paginas)
+
 st.download_button(
 	label = 'Baixar PDF',
 	data = cortar_pdf(arquivo_pdf, paginas),
