@@ -25,10 +25,10 @@ def juntar_pdf_e_exportar(lista_pdfs: list) -> bytes:
 	return dados_processados
 
 def paginas_pdf(file) -> int:
-	if file is not None:
+	try:
 		pdf = PdfReader(file)
 		return len(pdf.pages) + 1
-	else:
+	except:
 		return 1
 
 def cortar_pdf(file, lista_paginas: list) -> bytes:
@@ -45,7 +45,7 @@ def cortar_pdf(file, lista_paginas: list) -> bytes:
 	dados_processados = bytes_file.getvalue()
 	return dados_processados
 
-st.write('### Juntar PDFs')
+st.write('#### Juntar PDFs')
 arquivos_pdfs = st.file_uploader(
 	'Buscar arquivos neste computador',
 	'pdf',
@@ -59,7 +59,7 @@ st.download_button(
 	file_name = f'''{nome_arquivo1}_{int(datetime.now().timestamp())}.pdf'''
 )
 
-st.write('### Cortar PDFs')
+st.write('#### Cortar PDFs')
 arquivo_pdf = st.file_uploader(
 	'Buscar arquivo neste computador',
 	'pdf'
@@ -67,8 +67,6 @@ arquivo_pdf = st.file_uploader(
 
 nome_arquivo2 = st.text_input('Nome do arquivo (2)')
 paginas = st.multiselect('Páginas selecionadas', options = range(1, paginas_pdf(arquivo_pdf)))
-
-st.write(paginas)
 
 st.download_button(
 	label = 'Baixar PDF',
