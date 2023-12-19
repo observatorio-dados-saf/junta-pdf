@@ -34,7 +34,7 @@ def cortar_pdf(file, lista_paginas: list) -> bytes:
 	pdfw = PdfWriter()
 
 	for i in lista_paginas:
-		pdfw.append(pdfr.pages[i - 1])
+		pdfw.add_page(pdfr.pages[i - 1])
 
 	bytes_file = BytesIO()
 	pdfw.write(bytes_file)
