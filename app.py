@@ -26,6 +26,8 @@ def paginas_pdf(file) -> int:
 	if file is not None:
 		pdf = PdfReader(file)
 		return len(pdf.pages)
+	else:
+		return 1
 
 def cortar_pdf(file, lista_paginas) -> bytes:
 	pdfr = PdfReader(file)
