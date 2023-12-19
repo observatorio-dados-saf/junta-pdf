@@ -25,7 +25,7 @@ def juntar_pdf_e_exportar(lista_pdfs: list) -> bytes:
 def paginas_pdf(file) -> int:
 	if file is not None:
 		pdf = PdfReader(file)
-		return len(pdf.pages)
+		return len(pdf.pages) + 1
 	else:
 		return 1
 
