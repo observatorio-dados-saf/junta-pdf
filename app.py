@@ -45,8 +45,6 @@ def cortar_pdf(file, lista_paginas: list) -> bytes:
 	
 		dados_processados = bytes_file.getvalue()
 		return dados_processados
-	else:
-		return False
 
 st.write('#### Juntar PDFs')
 arquivos_pdfs = st.file_uploader(
